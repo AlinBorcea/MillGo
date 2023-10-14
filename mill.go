@@ -33,12 +33,36 @@ func (m *Mill) PlaceMan(a, b int) *error {
 	return err
 }
 
+func (m *Mill) MoveMan(a, b, c, d int) *error {
+	err := m.moveCellToNeighbor(a, b, c, d)
+	if err == &Success {
+		m.nextPlayer()
+	}
+
+	return err
+}
+
 func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
 	if m.board[a][b] == PlayerNone {
 		m.board[a][b] = p
 		return m.isMill(a, b)
 	}
 	return &ErrBadInput
+}
+
+func (m *Mill) moveCellToNeighbor(a, b, c, d int) *error {
+	if m.board[a][b] != m.currentPlayer {
+		return nil
+	}
+
+	if m.board[c][d] != PlayerNone {
+		return nil
+	}
+
+	m.board[c][d] = m.board[a][b]
+	m.board[a][b] = PlayerNone
+
+	return &Success
 }
 
 func (m *Mill) isMill(a, b int) *error {

@@ -25,3 +25,7 @@ func TestPlaceMan(t *testing.T) {
 
 	fmt.Print(mill.board)
 }
+
+func TestMoveMan(t *testing.T) {
+
+}
