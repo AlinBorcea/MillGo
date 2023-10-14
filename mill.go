@@ -32,7 +32,12 @@ func NewMill() *Mill {
 }
 
 func (m *Mill) PlaceMan(a, b int) *error {
-	err := m.placeCellUnrestricted(m.currentPlayer, a, b)
+	err := m.hasMenLeft()
+	if err != &Success {
+		return err
+	}
+
+	err = m.placeCellUnrestricted(m.currentPlayer, a, b)
 	if err == &Success {
 		m.nextPlayer()
 	}
@@ -52,6 +57,7 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
 	if m.board[a][b] == PlayerNone {
 		m.board[a][b] = p
+		m.decreaseMenLeft()
 		return m.isMill(a, b)
 	}
 	return &ErrBadInput
@@ -70,6 +76,25 @@ func (m *Mill) moveCellToNeighbor(a, b, c, d int) *error {
 	m.board[a][b] = PlayerNone
 
 	return &Success
+}
+
+func (m *Mill) hasMenLeft() *error {
+	if m.currentPlayer == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
+		return &Success
+	}
+	if m.currentPlayer == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
+		return &Success
+	}
+
+	return nil
+}
+
+func (m *Mill) decreaseMenLeft() {
+	if m.currentPlayer == PlayerOne {
+		m.menLeftToPlacePlayerOne--
+	} else {
+		m.menLeftToPlacePlayerTwo--
+	}
 }
 
 func (m *Mill) isMill(a, b int) *error {
