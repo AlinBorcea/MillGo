@@ -18,10 +18,17 @@ var (
 type Mill struct {
 	board         [3][8]Player
 	currentPlayer Player
+
+	menLeftToPlacePlayerOne int
+	menLeftToPlacePlayerTwo int
 }
 
 func NewMill() *Mill {
-	return &Mill{currentPlayer: PlayerOne}
+	return &Mill{
+		currentPlayer:           PlayerOne,
+		menLeftToPlacePlayerOne: 9,
+		menLeftToPlacePlayerTwo: 9,
+	}
 }
 
 func (m *Mill) PlaceMan(a, b int) *error {
