@@ -98,6 +98,33 @@ func (m *Mill) decreaseMenLeft() {
 }
 
 func (m *Mill) isMill(a, b int) *error {
+	if b >= 0 && b <= 2 {
+		if m.board[a][0] == m.board[a][1] && m.board[a][2] == m.board[a][b] {
+			return nil
+		}
+	}
+	if b >= 2 && b <= 4 {
+		if m.board[a][2] == m.board[a][3] && m.board[a][4] == m.board[a][b] {
+			return nil
+		}
+	}
+	if b >= 4 && b <= 6 {
+		if m.board[a][4] == m.board[a][5] && m.board[a][6] == m.board[a][b] {
+			return nil
+		}
+	}
+	if b >= 6 && b <= 7 {
+		if m.board[a][6] == m.board[a][7] && m.board[a][0] == m.board[a][b] {
+			return nil
+		}
+	}
+
+	if b == 1 || b == 3 || b == 5 || b == 7 {
+		if m.board[0][b] == m.board[1][b] && m.board[2][b] == m.board[a][b] {
+			return nil
+		}
+	}
+
 	return &Success
 }
 
