@@ -52,11 +52,11 @@ func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
 
 func (m *Mill) moveCellToNeighbor(a, b, c, d int) *error {
 	if m.board[a][b] != m.currentPlayer {
-		return nil
+		return &ErrBadInput
 	}
 
 	if m.board[c][d] != PlayerNone {
-		return nil
+		return &ErrBadInput
 	}
 
 	m.board[c][d] = m.board[a][b]
