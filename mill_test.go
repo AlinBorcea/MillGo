@@ -27,5 +27,28 @@ func TestPlaceMan(t *testing.T) {
 }
 
 func TestMoveMan(t *testing.T) {
+	mill := NewMill()
+	mill.PlaceMan(0, 0)
+	mill.PlaceMan(1, 0)
+
+	err := mill.MoveMan(0, 0, 0, 0)
+	if err == &Success {
+		t.Fatalf("cannot move man to its current position")
+	}
+
+	err = mill.MoveMan(0, 0, 0, 1)
+	if err != &Success {
+		t.Fatalf("failed to move man")
+	}
+
+	err = mill.MoveMan(0, 0, 0, 7)
+	if err == &Success {
+		t.Fatalf("moved empty cell")
+	}
+
+	err = mill.MoveMan(1, 0, 0, 0)
+	if err == &Success {
+		t.Fatalf("illegal move")
+	}
 
 }
