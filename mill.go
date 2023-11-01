@@ -1,6 +1,8 @@
 package mill
 
-import "errors"
+import (
+	"errors"
+)
 
 type Player int
 
@@ -72,6 +74,18 @@ func (m *Mill) moveCellToNeighbor(a, b, c, d int) *error {
 		return &ErrBadInput
 	}
 
+	if a == c && (b-d == 1 || d-b == 1) {
+		goto ok
+	} else if (b == 1 || b == 3 || b == 5 || b == 7) && b == d && (a-b == 1 || b-a == 1) {
+		goto ok
+	} else {
+		goto fail
+	}
+
+fail:
+	return &ErrBadInput
+
+ok:
 	m.board[c][d] = m.board[a][b]
 	m.board[a][b] = PlayerNone
 
