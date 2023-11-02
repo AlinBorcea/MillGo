@@ -20,15 +20,9 @@ func TestManually(t *testing.T) {
 	for err != nil {
 		// input
 		fmt.Print("Input: ")
-		if placementStage && readInputAB(scanner, &a, &b) != nil {
-			continue
-		} else if moveStage && readInputABCD(scanner, &a, &b, &c, &d) != nil {
-			continue
-		}
-
-		if placementStage {
+		if placementStage && readInputAB(scanner, &a, &b) == nil {
 			err = mill.PlaceMan(a, b)
-		} else if moveStage {
+		} else if moveStage && readInputABCD(scanner, &a, &b, &c, &d) == nil {
 			err = mill.MoveMan(a, b, c, d)
 		}
 
