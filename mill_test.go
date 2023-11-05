@@ -106,23 +106,23 @@ func TestMoveMan(t *testing.T) {
 
 func TestTakeOpponentDown(t *testing.T) {
 	mill := NewMill()
-	var err *error = nil
+	var err *error = &Success
 
 	mill.PlaceMan(1, 5)
 	mill.PlaceMan(1, 6)
 
 	err = mill.TakeManFromOpponent(1, 5)
-	if err == nil {
+	if err != &ErrBadInput {
 		t.Fatalf("took down own man")
 	}
 
 	err = mill.TakeManFromOpponent(0, 3)
-	if err == nil {
+	if err != &ErrBadInput {
 		t.Fatalf("there is no man to take")
 	}
 
 	err = mill.TakeManFromOpponent(1, 6)
-	if err != nil {
+	if err != &Success {
 		t.Fatalf("could not take man")
 	}
 

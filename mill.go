@@ -65,10 +65,11 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 		return &ErrBadInput
 	}
 
-	if m.board[a][b] == m.currentPlayer {
+	if m.board[a][b] == m.currentPlayer || m.board[a][b] == PlayerNone {
 		return &ErrBadInput
 	}
 
+	m.board[a][b] = PlayerNone
 	return &Success
 }
 
