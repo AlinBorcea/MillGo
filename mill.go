@@ -13,8 +13,12 @@ const (
 )
 
 var (
-	Success     error = nil
-	ErrBadInput error = errors.New("input is invalid")
+	Success         error = nil
+	ErrBadInput           = errors.New("input is invalid")
+	ErrNoMenLeft          = errors.New("no men left")
+	ErrItIsAMill          = errors.New("it is a mill")
+	ErrItIsNotAMill       = errors.New("it is not a mill")
+	ErrFail               = errors.New("fail")
 )
 
 type Mill struct {
