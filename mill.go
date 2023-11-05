@@ -38,12 +38,11 @@ func NewMill() *Mill {
 }
 
 func (m *Mill) PlaceMan(a, b int) *error {
-	err := m.hasMenLeft()
-	if err != &Success {
-		return err
+	if !m.hasMenLeft() {
+		return &ErrNoMenLeft
 	}
 
-	err = m.placeCellUnrestricted(m.currentPlayer, a, b)
+	err := m.placeCellUnrestricted(m.currentPlayer, a, b)
 	if err == &Success {
 		m.nextPlayer()
 	}
@@ -61,12 +60,12 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
-	if m.isMill(a, b) == nil {
-		return nil
+	if m.isMill(a, b) {
+		return &ErrBadInput
 	}
 
 	if m.board[a][b] == m.currentPlayer {
-		return nil
+		return &ErrBadInput
 	}
 
 	return &Success
@@ -76,7 +75,7 @@ func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
 	if m.board[a][b] == PlayerNone {
 		m.board[a][b] = p
 		m.decreaseMenLeft()
-		return m.isMill(a, b)
+		return &Success
 	}
 	return &ErrBadInput
 }
@@ -108,15 +107,15 @@ ok:
 	return &Success
 }
 
-func (m *Mill) hasMenLeft() *error {
+func (m *Mill) hasMenLeft() bool {
 	if m.currentPlayer == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
-		return &Success
+		return true
 	}
 	if m.currentPlayer == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
-		return &Success
+		return true
 	}
 
-	return nil
+	return false
 }
 
 func (m *Mill) decreaseMenLeft() {
@@ -127,35 +126,35 @@ func (m *Mill) decreaseMenLeft() {
 	}
 }
 
-func (m *Mill) isMill(a, b int) *error {
+func (m *Mill) isMill(a, b int) bool {
 	if b >= 0 && b <= 2 {
 		if m.board[a][0] == m.board[a][1] && m.board[a][2] == m.board[a][b] {
-			return nil
+			return true
 		}
 	}
 	if b >= 2 && b <= 4 {
 		if m.board[a][2] == m.board[a][3] && m.board[a][4] == m.board[a][b] {
-			return nil
+			return true
 		}
 	}
 	if b >= 4 && b <= 6 {
 		if m.board[a][4] == m.board[a][5] && m.board[a][6] == m.board[a][b] {
-			return nil
+			return true
 		}
 	}
 	if b >= 6 && b <= 7 {
 		if m.board[a][6] == m.board[a][7] && m.board[a][0] == m.board[a][b] {
-			return nil
+			return true
 		}
 	}
 
 	if b == 1 || b == 3 || b == 5 || b == 7 {
 		if m.board[0][b] == m.board[1][b] && m.board[2][b] == m.board[a][b] {
-			return nil
+			return true
 		}
 	}
 
-	return &Success
+	return false
 }
 
 func (m *Mill) nextPlayer() {
