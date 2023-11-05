@@ -91,7 +91,7 @@ func (m *Mill) moveCellToNeighbor(a, b, c, d int) bool {
 
 	if a == c && (b-d == 1 || d-b == 1) {
 		goto ok
-	} else if (b == 1 || b == 3 || b == 5 || b == 7) && b == d && (a-b == 1 || b-a == 1) {
+	} else if (b == 1 || b == 3 || b == 5 || b == 7) && b == d && (a-c == 1 || c-a == 1) {
 		goto ok
 	} else {
 		goto fail
