@@ -125,3 +125,17 @@ func TestTakeOpponentDown(t *testing.T) {
 		t.Fatalf("could not take man")
 	}
 }
+
+func TestEnemyHasVulnerableMan(t *testing.T) {
+	mill := NewMill()
+
+	mill.PlaceMan(0, 0)
+	mill.PlaceMan(1, 0)
+	mill.PlaceMan(2, 3)
+	mill.PlaceMan(2, 5)
+
+	if !mill.EnemyHasVulnerableMan() {
+		t.Fatalf("the enemy does have a vulnerable man")
+	}
+
+}
