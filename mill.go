@@ -73,6 +73,10 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	return &Success
 }
 
+func (m *Mill) EnemyHasVulnerableMan() bool {
+	return true
+}
+
 func (m *Mill) placeCellUnrestricted(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
 		m.board[a][b] = m.currentPlayer
