@@ -57,7 +57,15 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
-	return nil
+	if m.isMill(a, b) == nil {
+		return nil
+	}
+
+	if m.board[a][b] == m.currentPlayer {
+		return nil
+	}
+
+	return &Success
 }
 
 func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
