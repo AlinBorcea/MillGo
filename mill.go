@@ -62,7 +62,7 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	if m.isMill(a, b) {
-		return &ErrBadInput
+		return &ErrItIsAMill
 	}
 
 	if m.board[a][b] == m.currentPlayer || m.board[a][b] == PlayerNone {
@@ -127,6 +127,10 @@ func (m *Mill) decreaseMenLeft() {
 }
 
 func (m *Mill) isMill(a, b int) bool {
+	if m.board[a][b] == PlayerNone {
+		return false
+	}
+
 	if b >= 0 && b <= 2 {
 		if m.board[a][0] == m.board[a][1] && m.board[a][2] == m.board[a][b] {
 			return true
