@@ -74,7 +74,14 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 }
 
 func (m *Mill) EnemyHasVulnerableMan() bool {
-	return true
+	for i := range m.board {
+		for j := range m.board[i] {
+			if m.board[i][j] != m.currentPlayer && m.isMill(i, j) {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func (m *Mill) placeCellUnrestricted(a, b int) bool {
