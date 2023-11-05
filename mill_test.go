@@ -101,7 +101,6 @@ func TestMoveMan(t *testing.T) {
 	if err == &Success {
 		t.Fatalf("illegal move")
 	}
-
 }
 
 func TestTakeOpponentDown(t *testing.T) {
@@ -125,5 +124,4 @@ func TestTakeOpponentDown(t *testing.T) {
 	if err != &Success {
 		t.Fatalf("could not take man")
 	}
-
 }

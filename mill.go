@@ -118,14 +118,6 @@ func (m *Mill) hasMenLeft() bool {
 	return false
 }
 
-func (m *Mill) decreaseMenLeft() {
-	if m.currentPlayer == PlayerOne {
-		m.menLeftToPlacePlayerOne--
-	} else {
-		m.menLeftToPlacePlayerTwo--
-	}
-}
-
 func (m *Mill) isMill(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
 		return false
@@ -159,6 +151,14 @@ func (m *Mill) isMill(a, b int) bool {
 	}
 
 	return false
+}
+
+func (m *Mill) decreaseMenLeft() {
+	if m.currentPlayer == PlayerOne {
+		m.menLeftToPlacePlayerOne--
+	} else {
+		m.menLeftToPlacePlayerTwo--
+	}
 }
 
 func (m *Mill) nextPlayer() {
