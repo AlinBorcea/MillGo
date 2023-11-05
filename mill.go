@@ -42,12 +42,13 @@ func (m *Mill) PlaceMan(a, b int) *error {
 		return &ErrNoMenLeft
 	}
 
-	err := m.placeCellUnrestricted(m.currentPlayer, a, b)
-	if err == &Success {
+	if m.placeCellUnrestricted(a, b) {
+		m.decreaseMenLeft()
 		m.nextPlayer()
+		return &Success
 	}
 
-	return err
+	return &ErrBadInput
 }
 
 func (m *Mill) MoveMan(a, b, c, d int) *error {
@@ -71,13 +72,12 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	return &Success
 }
 
-func (m *Mill) placeCellUnrestricted(p Player, a, b int) *error {
+func (m *Mill) placeCellUnrestricted(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
-		m.board[a][b] = p
-		m.decreaseMenLeft()
-		return &Success
+		m.board[a][b] = m.currentPlayer
+		return true
 	}
-	return &ErrBadInput
+	return false
 }
 
 func (m *Mill) moveCellToNeighbor(a, b, c, d int) *error {
