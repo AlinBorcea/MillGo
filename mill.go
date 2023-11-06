@@ -63,7 +63,7 @@ func (m *Mill) PlaceMan(a, b int) *error {
 	}
 
 	m.decreaseMenLeft()
-	m.nextPlayer()
+	m.NextPlayer()
 	return &Success
 }
 
@@ -78,8 +78,16 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 		m.status = StatusTurnDone
 	}
 
-	m.nextPlayer()
+	m.NextPlayer()
 	return &Success
+}
+
+func (m *Mill) NextPlayer() {
+	if m.currentPlayer == PlayerOne {
+		m.currentPlayer = PlayerTwo
+	} else {
+		m.currentPlayer = PlayerOne
+	}
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
@@ -191,13 +199,5 @@ func (m *Mill) decreaseMenLeft() {
 		m.menLeftToPlacePlayerOne--
 	} else {
 		m.menLeftToPlacePlayerTwo--
-	}
-}
-
-func (m *Mill) nextPlayer() {
-	if m.currentPlayer == PlayerOne {
-		m.currentPlayer = PlayerTwo
-	} else {
-		m.currentPlayer = PlayerOne
 	}
 }
