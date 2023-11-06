@@ -56,6 +56,12 @@ func (m *Mill) PlaceMan(a, b int) *error {
 		return &ErrBadInput
 	}
 
+	if m.isMill(a, b) {
+		m.status = StatusAwaitTargetMan
+	} else {
+		m.status = StatusTurnDone
+	}
+
 	m.decreaseMenLeft()
 	m.nextPlayer()
 	return &Success
@@ -64,6 +70,12 @@ func (m *Mill) PlaceMan(a, b int) *error {
 func (m *Mill) MoveMan(a, b, c, d int) *error {
 	if !m.moveCellToNeighbor(a, b, c, d) {
 		return &ErrBadInput
+	}
+
+	if m.isMill(c, d) {
+		m.status = StatusAwaitTargetMan
+	} else {
+		m.status = StatusTurnDone
 	}
 
 	m.nextPlayer()
