@@ -88,6 +88,7 @@ func (m *Mill) NextPlayer() {
 	} else {
 		m.currentPlayer = PlayerOne
 	}
+	m.status = StatusDefault
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
