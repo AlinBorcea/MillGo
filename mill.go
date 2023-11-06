@@ -62,12 +62,12 @@ func (m *Mill) PlaceMan(a, b int) *error {
 }
 
 func (m *Mill) MoveMan(a, b, c, d int) *error {
-	if m.moveCellToNeighbor(a, b, c, d) {
-		m.nextPlayer()
-		return &Success
-	} else {
+	if !m.moveCellToNeighbor(a, b, c, d) {
 		return &ErrBadInput
 	}
+
+	m.nextPlayer()
+	return &Success
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
