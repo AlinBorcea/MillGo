@@ -52,13 +52,13 @@ func (m *Mill) PlaceMan(a, b int) *error {
 		return &ErrNoMenLeft
 	}
 
-	if m.placeCellUnrestricted(a, b) {
-		m.decreaseMenLeft()
-		m.nextPlayer()
-		return &Success
+	if !m.placeCellUnrestricted(a, b) {
+		return &ErrBadInput
 	}
 
-	return &ErrBadInput
+	m.decreaseMenLeft()
+	m.nextPlayer()
+	return &Success
 }
 
 func (m *Mill) MoveMan(a, b, c, d int) *error {
