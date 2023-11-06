@@ -5,11 +5,18 @@ import (
 )
 
 type Player int
+type GameStatus int
 
 const (
 	PlayerNone Player = iota
 	PlayerOne
 	PlayerTwo
+)
+
+const (
+	StatusDefault GameStatus = iota
+	StatusTurnDone
+	StatusAwaitTargetMan
 )
 
 var (
@@ -24,6 +31,7 @@ var (
 type Mill struct {
 	board         [3][8]Player
 	currentPlayer Player
+	status        GameStatus
 
 	menLeftToPlacePlayerOne int
 	menLeftToPlacePlayerTwo int
@@ -31,7 +39,9 @@ type Mill struct {
 
 func NewMill() *Mill {
 	return &Mill{
-		currentPlayer:           PlayerOne,
+		currentPlayer: PlayerOne,
+		status:        StatusDefault,
+
 		menLeftToPlacePlayerOne: 9,
 		menLeftToPlacePlayerTwo: 9,
 	}
