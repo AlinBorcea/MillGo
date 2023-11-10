@@ -159,17 +159,6 @@ ok:
 	return true
 }
 
-func (m *Mill) hasMenLeft() bool {
-	if m.currentPlayer == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
-		return true
-	}
-	if m.currentPlayer == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
-		return true
-	}
-
-	return false
-}
-
 func (m *Mill) isMill(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
 		return false
@@ -200,6 +189,17 @@ func (m *Mill) isMill(a, b int) bool {
 		if m.board[0][b] == m.board[1][b] && m.board[2][b] == m.board[a][b] {
 			return true
 		}
+	}
+
+	return false
+}
+
+func (m *Mill) hasMenLeft() bool {
+	if m.currentPlayer == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
+		return true
+	}
+	if m.currentPlayer == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
+		return true
 	}
 
 	return false
