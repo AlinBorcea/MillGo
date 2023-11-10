@@ -4,11 +4,11 @@ import (
 	"errors"
 )
 
-type Player int
+type PlayerId int
 type GameStatus int
 
 const (
-	PlayerNone Player = iota
+	PlayerNone PlayerId = iota
 	PlayerOne
 	PlayerTwo
 )
@@ -29,8 +29,9 @@ var (
 )
 
 type Mill struct {
-	board         [3][8]Player
-	currentPlayer Player
+	board         [3][8]PlayerId
+	players       [3]Player
+	currentPlayer PlayerId
 	status        GameStatus
 
 	menLeftToPlacePlayerOne int
