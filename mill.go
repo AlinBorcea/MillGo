@@ -209,9 +209,5 @@ func (m *Mill) isMill(a, b int) bool {
 }
 
 func (m *Mill) decreaseOpponentsMenOnBoard() {
-	if m.currentPlayerId == PlayerOne {
-		m.menOnBoardPlayerTwo--
-	} else {
-		m.menOnBoardPlayerOne--
-	}
+	m.opponent().decreaseMenOnBoard()
 }
