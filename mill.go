@@ -35,6 +35,8 @@ type Mill struct {
 
 	menLeftToPlacePlayerOne int
 	menLeftToPlacePlayerTwo int
+	menOnBoardPlayerOne     int
+	menOnBoardPlayerTwo     int
 }
 
 func NewMill() *Mill {
@@ -44,6 +46,8 @@ func NewMill() *Mill {
 
 		menLeftToPlacePlayerOne: 9,
 		menLeftToPlacePlayerTwo: 9,
+		menOnBoardPlayerOne:     0,
+		menOnBoardPlayerTwo:     0,
 	}
 }
 
@@ -67,6 +71,7 @@ func (m *Mill) PlaceMan(a, b int) *error {
 	}
 
 	m.decreaseMenLeft()
+	m.increaseMenOnBoard()
 	return &Success
 }
 
@@ -202,5 +207,13 @@ func (m *Mill) decreaseMenLeft() {
 		m.menLeftToPlacePlayerOne--
 	} else {
 		m.menLeftToPlacePlayerTwo--
+	}
+}
+
+func (m *Mill) increaseMenOnBoard() {
+	if m.currentPlayer == PlayerOne {
+		m.menOnBoardPlayerOne++
+	} else {
+		m.menOnBoardPlayerTwo++
 	}
 }
