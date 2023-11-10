@@ -112,7 +112,7 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	}
 
 	m.board[a][b] = PlayerNone
-	m.decreaseOpponentsMenOnBoard()
+	m.opponent().decreaseMenOnBoard()
 	return &Success
 }
 
@@ -206,8 +206,4 @@ func (m *Mill) isMill(a, b int) bool {
 	}
 
 	return false
-}
-
-func (m *Mill) decreaseOpponentsMenOnBoard() {
-	m.opponent().decreaseMenOnBoard()
 }
