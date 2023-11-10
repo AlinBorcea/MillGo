@@ -131,6 +131,14 @@ func (m *Mill) currentPlayer() *Player {
 	return m.players[m.currentPlayerId]
 }
 
+func (m *Mill) opponent() *Player {
+	if m.currentPlayerId == PlayerOne {
+		return m.players[PlayerTwo]
+	} else {
+		return m.players[PlayerOne]
+	}
+}
+
 func (m *Mill) placeCellUnrestricted(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
 		m.board[a][b] = m.currentPlayerId
