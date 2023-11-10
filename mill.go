@@ -47,6 +47,10 @@ func NewMill() *Mill {
 	}
 }
 
+func (m *Mill) Status() GameStatus {
+	return m.status
+}
+
 func (m *Mill) PlaceMan(a, b int) *error {
 	if !m.hasMenLeft() {
 		return &ErrNoMenLeft
