@@ -63,7 +63,6 @@ func (m *Mill) PlaceMan(a, b int) *error {
 	}
 
 	m.decreaseMenLeft()
-	m.NextPlayer()
 	return &Success
 }
 
@@ -78,7 +77,6 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 		m.status = StatusTurnDone
 	}
 
-	m.NextPlayer()
 	return &Success
 }
 
