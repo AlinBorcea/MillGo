@@ -33,11 +33,6 @@ type Mill struct {
 	players         [3]*Player
 	currentPlayerId PlayerId
 	status          GameStatus
-
-	menLeftToPlacePlayerOne int
-	menLeftToPlacePlayerTwo int
-	menOnBoardPlayerOne     int
-	menOnBoardPlayerTwo     int
 }
 
 func NewMill() (m *Mill) {
@@ -45,11 +40,6 @@ func NewMill() (m *Mill) {
 		players:         [3]*Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
 		currentPlayerId: PlayerOne,
 		status:          StatusDefault,
-
-		menLeftToPlacePlayerOne: 9,
-		menLeftToPlacePlayerTwo: 9,
-		menOnBoardPlayerOne:     0,
-		menOnBoardPlayerTwo:     0,
 	}
 }
 
