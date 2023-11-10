@@ -30,7 +30,7 @@ var (
 
 type Mill struct {
 	board           [3][8]PlayerId
-	players         [3]Player
+	players         [3]*Player
 	currentPlayerId PlayerId
 	status          GameStatus
 
@@ -42,7 +42,7 @@ type Mill struct {
 
 func NewMill() (m *Mill) {
 	return &Mill{
-		players:         [3]Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
+		players:         [3]*Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
 		currentPlayerId: PlayerOne,
 		status:          StatusDefault,
 
@@ -58,7 +58,9 @@ func (m *Mill) Status() GameStatus {
 }
 
 func (m *Mill) PlaceMan(a, b int) *error {
-	if !m.hasMenLeft() {
+	player := m.currentPlayer()
+
+	if !player.hasMenLeft() {
 		return &ErrNoMenLeft
 	}
 
@@ -72,8 +74,8 @@ func (m *Mill) PlaceMan(a, b int) *error {
 		m.status = StatusTurnDone
 	}
 
-	m.decreaseMenLeft()
-	m.increaseMenOnBoard()
+	player.decreaseMenLeft()
+	player.increaseMenOnBoard()
 	return &Success
 }
 
@@ -123,6 +125,10 @@ func (m *Mill) EnemyHasVulnerableMan() bool {
 		}
 	}
 	return false
+}
+
+func (m *Mill) currentPlayer() *Player {
+	return m.players[m.currentPlayerId]
 }
 
 func (m *Mill) placeCellUnrestricted(a, b int) bool {
@@ -192,4 +198,12 @@ func (m *Mill) isMill(a, b int) bool {
 	}
 
 	return false
+}
+
+func (m *Mill) decreaseOpponentsMenOnBoard() {
+	if m.currentPlayerId == PlayerOne {
+		m.menOnBoardPlayerTwo--
+	} else {
+		m.menOnBoardPlayerOne--
+	}
 }
