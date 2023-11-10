@@ -29,10 +29,10 @@ var (
 )
 
 type Mill struct {
-	board         [3][8]PlayerId
-	players       [3]Player
-	currentPlayer PlayerId
-	status        GameStatus
+	board           [3][8]PlayerId
+	players         [3]Player
+	currentPlayerId PlayerId
+	status          GameStatus
 
 	menLeftToPlacePlayerOne int
 	menLeftToPlacePlayerTwo int
@@ -42,9 +42,9 @@ type Mill struct {
 
 func NewMill() (m *Mill) {
 	return &Mill{
-		currentPlayer: PlayerOne,
-		status:        StatusDefault,
-		players:       [3]Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
+		players:         [3]Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
+		currentPlayerId: PlayerOne,
+		status:          StatusDefault,
 
 		menLeftToPlacePlayerOne: 9,
 		menLeftToPlacePlayerTwo: 9,
@@ -92,10 +92,10 @@ func (m *Mill) MoveMan(a, b, c, d int) *error {
 }
 
 func (m *Mill) NextPlayer() {
-	if m.currentPlayer == PlayerOne {
-		m.currentPlayer = PlayerTwo
+	if m.currentPlayerId == PlayerOne {
+		m.currentPlayerId = PlayerTwo
 	} else {
-		m.currentPlayer = PlayerOne
+		m.currentPlayerId = PlayerOne
 	}
 	m.status = StatusDefault
 }
@@ -105,7 +105,7 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 		return &ErrItIsAMill
 	}
 
-	if m.board[a][b] == m.currentPlayer || m.board[a][b] == PlayerNone {
+	if m.board[a][b] == m.currentPlayerId || m.board[a][b] == PlayerNone {
 		return &ErrBadInput
 	}
 
@@ -117,7 +117,7 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 func (m *Mill) EnemyHasVulnerableMan() bool {
 	for i := range m.board {
 		for j := range m.board[i] {
-			if m.board[i][j] != m.currentPlayer && m.isMill(i, j) {
+			if m.board[i][j] != m.currentPlayerId && m.isMill(i, j) {
 				return true
 			}
 		}
@@ -127,14 +127,14 @@ func (m *Mill) EnemyHasVulnerableMan() bool {
 
 func (m *Mill) placeCellUnrestricted(a, b int) bool {
 	if m.board[a][b] == PlayerNone {
-		m.board[a][b] = m.currentPlayer
+		m.board[a][b] = m.currentPlayerId
 		return true
 	}
 	return false
 }
 
 func (m *Mill) moveCellToNeighbor(a, b, c, d int) bool {
-	if m.board[a][b] != m.currentPlayer {
+	if m.board[a][b] != m.currentPlayerId {
 		return false
 	}
 

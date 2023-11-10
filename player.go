@@ -20,10 +20,10 @@ func NewPlayer() Player {
 }
 
 func (m *Mill) hasMenLeft() bool {
-	if m.currentPlayer == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
+	if m.currentPlayerId == PlayerOne && m.menLeftToPlacePlayerOne > 0 {
 		return true
 	}
-	if m.currentPlayer == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
+	if m.currentPlayerId == PlayerTwo && m.menLeftToPlacePlayerTwo > 0 {
 		return true
 	}
 
@@ -31,7 +31,7 @@ func (m *Mill) hasMenLeft() bool {
 }
 
 func (m *Mill) decreaseMenLeft() {
-	if m.currentPlayer == PlayerOne {
+	if m.currentPlayerId == PlayerOne {
 		m.menLeftToPlacePlayerOne--
 	} else {
 		m.menLeftToPlacePlayerTwo--
@@ -39,7 +39,7 @@ func (m *Mill) decreaseMenLeft() {
 }
 
 func (m *Mill) increaseMenOnBoard() {
-	if m.currentPlayer == PlayerOne {
+	if m.currentPlayerId == PlayerOne {
 		m.menOnBoardPlayerOne++
 	} else {
 		m.menOnBoardPlayerTwo++
@@ -47,7 +47,7 @@ func (m *Mill) increaseMenOnBoard() {
 }
 
 func (m *Mill) decreaseOpponentsMenOnBoard() {
-	if m.currentPlayer == PlayerOne {
+	if m.currentPlayerId == PlayerOne {
 		m.menOnBoardPlayerTwo--
 	} else {
 		m.menOnBoardPlayerOne--
