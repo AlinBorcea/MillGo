@@ -27,6 +27,10 @@ func (p *Player) decreaseMenLeft() {
 	p.menLeftToPlace--
 }
 
+func (p *Player) decreaseMenOnBoard() {
+	p.menOnBoard--
+}
+
 func (p *Player) increaseMenOnBoard() {
 	p.menOnBoard++
 }
