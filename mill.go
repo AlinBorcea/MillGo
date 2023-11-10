@@ -40,10 +40,11 @@ type Mill struct {
 	menOnBoardPlayerTwo     int
 }
 
-func NewMill() *Mill {
+func NewMill() (m *Mill) {
 	return &Mill{
 		currentPlayer: PlayerOne,
 		status:        StatusDefault,
+		players:       [3]Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
 
 		menLeftToPlacePlayerOne: 9,
 		menLeftToPlacePlayerTwo: 9,
