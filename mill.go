@@ -108,6 +108,7 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	}
 
 	m.board[a][b] = PlayerNone
+	m.decreaseOpponentsMenOnBoard()
 	return &Success
 }
 
@@ -215,5 +216,13 @@ func (m *Mill) increaseMenOnBoard() {
 		m.menOnBoardPlayerOne++
 	} else {
 		m.menOnBoardPlayerTwo++
+	}
+}
+
+func (m *Mill) decreaseOpponentsMenOnBoard() {
+	if m.currentPlayer == PlayerOne {
+		m.menOnBoardPlayerTwo--
+	} else {
+		m.menOnBoardPlayerOne--
 	}
 }
