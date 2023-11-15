@@ -16,6 +16,9 @@ const (
 const (
 	StatusDefault GameStatus = iota
 	StatusTurnDone
+	StatusGameDone
+	StatusAwaitPlaceMan
+	StatusAwaitMoveMan
 	StatusAwaitTargetMan
 )
 
