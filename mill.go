@@ -110,6 +110,7 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 		return &ErrBadInput
 	}
 
+	m.status = StatusTurnDone
 	m.board[a][b] = PlayerNone
 	m.opponent().decreaseMenOnBoard()
 	return &Success
