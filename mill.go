@@ -2,6 +2,8 @@ package mill
 
 import (
 	"errors"
+	"fmt"
+	"os"
 )
 
 type PlayerId int
@@ -114,6 +116,12 @@ func (m *Mill) TakeManFromOpponent(a, b int) *error {
 	m.board[a][b] = PlayerNone
 	m.opponent().decreaseMenOnBoard()
 	return &Success
+}
+
+func (m *Mill) PrintTable(file *os.File) {
+	for i := range m.board {
+		fmt.Fprintln(file, m.board[i])
+	}
 }
 
 func (m *Mill) EnemyHasVulnerableMan() bool {

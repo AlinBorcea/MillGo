@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/AlinBorcea/mill"
 )
@@ -17,10 +18,12 @@ func main() {
 			fmt.Println("Going to next player")
 			game.NextPlayer()
 		case mill.StatusAwaitPlaceMan:
+			game.PrintTable(os.Stdout)
 			fmt.Println("Place man")
 			err = placeMan(game)
 			handlePlaceManError(err)
 		case mill.StatusAwaitMoveMan:
+			game.PrintTable(os.Stdout)
 			fmt.Println("Move man")
 			err = moveMan(game)
 			handleMoveManError(err)
