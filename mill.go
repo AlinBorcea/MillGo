@@ -92,7 +92,13 @@ func (m *Mill) NextPlayer() {
 	} else {
 		m.currentPlayerId = PlayerOne
 	}
-	m.status = StatusDefault
+
+	if m.currentPlayer().hasMenLeft() {
+		m.status = StatusAwaitPlaceMan
+	} else {
+		m.status = StatusAwaitMoveMan
+	}
+
 }
 
 func (m *Mill) TakeManFromOpponent(a, b int) *error {
