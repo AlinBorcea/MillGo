@@ -10,17 +10,22 @@ func main() {
 	game := mill.NewMill()
 	var err *error
 
+	fmt.Println("Game started")
 	for game.Status() != mill.StatusGameDone {
 		switch game.Status() {
 		case mill.StatusTurnDone:
+			fmt.Println("Going to next player")
 			game.NextPlayer()
 		case mill.StatusAwaitPlaceMan:
+			fmt.Println("Place man")
 			err = placeMan(game)
 			handlePlaceManError(err)
 		case mill.StatusAwaitMoveMan:
+			fmt.Println("Move man")
 			err = moveMan(game)
 			handleMoveManError(err)
 		case mill.StatusAwaitTargetMan:
+			fmt.Println("Pick enemy")
 			err = takeMan(game)
 			handleTakeManError(err)
 		}
