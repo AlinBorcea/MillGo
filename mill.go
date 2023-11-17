@@ -42,7 +42,7 @@ func NewMill() (m *Mill) {
 	return &Mill{
 		players:         [3]*Player{NewPlayerNone(), NewPlayer(), NewPlayer()},
 		currentPlayerId: PlayerOne,
-		status:          StatusDefault,
+		status:          StatusAwaitPlaceMan,
 	}
 }
 
